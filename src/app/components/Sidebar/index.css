@@ -1,0 +1,19 @@
+.sidebar{
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+    
+}
+
+.button-sidebar {
+    border-radius: 12px;
+    background: rgba(94, 93, 93, 0.597);
+    
+    /* Add a smooth transition for the background color */
+}
+
+.button-sidebar:hover {
+    background: linear-gradient(116deg, rgba(85, 85, 85, 0.721) -0.2%, rgba(255, 255, 255, 0) 122.69%);
+    transition: background-color 0.5s ease;
+    /* Modify the background color for the hover effect */
+}

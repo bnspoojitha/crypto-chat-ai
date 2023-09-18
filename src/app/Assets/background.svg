@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1823" height="1200" viewBox="0 0 1823 1200" fill="none">
+  <!-- First SVG Path with Fill Color -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="#26004D"/>
+
+  <!-- Second SVG with Radial Gradient -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="url(#paint0_radial_28_593)"/>
+  <defs>
+    <radialGradient id="paint0_radial_28_593" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(187.3 1243.56) scale(1973 1446)">
+      <stop stop-color="#F52E3B"/>
+      <stop offset="0.5" stop-color="#F52E3B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Third SVG with Radial Gradient -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="url(#paint0_radial_28_594)"/>
+  <defs>
+    <radialGradient id="paint0_radial_28_594" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(207.03 1214.64) scale(1973 1446)">
+      <stop stop-color="#594CF0"/>
+      <stop offset="0.5" stop-color="#594CF0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Fourth SVG with Radial Gradient -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="url(#paint0_radial_28_595)"/>
+  <defs>
+    <radialGradient id="paint0_radial_28_595" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1745.97 679.62) scale(1973 1446)">
+      <stop stop-color="#993DF5"/>
+      <stop offset="0.5" stop-color="#993DF5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Fifth SVG with Radial Gradient -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="url(#paint0_radial_28_596)"/>
+  <defs>
+    <radialGradient id="paint0_radial_28_596" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(877.85 1344.78) scale(1973 1446)">
+      <stop stop-color="#932AEF"/>
+      <stop offset="0.5" stop-color="#932AEF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sixth SVG Path with Fill Color -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="#26004D"/>
+
+  <!-- Seventh SVG with Radial Gradient -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="url(#paint0_radial_28_599)"/>
+  <defs>
+    <radialGradient id="paint0_radial_28_599" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(187.3 1243.56) scale(1973 1446)">
+      <stop stop-color="#F52E3B"/>
+      <stop offset="0.5" stop-color="#F52E3B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Eighth SVG with Radial Gradient -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="url(#paint0_radial_28_600)"/>
+  <defs>
+    <radialGradient id="paint0_radial_28_600" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(207.03 1214.64) scale(1973 1446)">
+      <stop stop-color="#594CF0"/>
+      <stop offset="0.5" stop-color="#594CF0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Ninth SVG with Radial Gradient -->
+  <path d="M1963 0H-10V1446H1963V0Z" fill="url(#paint0_radial_28_601)"/>
+  <defs>
+    <radialGradient id="paint0_radial_28_601" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1745.97 679.62) scale(1973 1446)">
+      <stop stop-color="#993DF5"/>
+      <stop offset="0.5" stop-color="#993DF5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Tenth SVG with Radial Gradient -->
+  <path d="M1963 0H-10V1327H1963V0Z" fill="url(#paint0_radial_28_602)"/>
+  <defs>
+    <radialGradient id="paint0_radial_28_602" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(877.85 1234.11) scale(1973 1327)">
+      <stop stop-color="#932AEF"/>
+      <stop offset="0.5" stop-color="#932AEF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
