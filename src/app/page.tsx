@@ -7,7 +7,7 @@ import Response from "./components/Response";
 import Search from "./components/Search";
 import { useGlobalContext } from "./context/globalContext";
 import { chatTypes } from "./reducers/globalReducer";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Session } from "inspector";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -15,10 +15,6 @@ import { useEffect } from "react";
 export default function Home() {
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
   const { data: session } = useSession();
-
-  if (!session?.user) {
-    useRouter().push("/auth/login");
-  }
 
   return (
     <main className="grid grid-cols-6 gap-3 w-screen h-screen p-5">
