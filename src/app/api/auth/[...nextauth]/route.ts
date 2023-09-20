@@ -35,7 +35,7 @@ export default NextAuth({
           }
         } catch (error) {
           // Handle any errors that occur during the request
-          console.error("An error occurred:", error);
+          console.error("An error occurred!:", error);
           return Promise.resolve(null);
         }
       },
