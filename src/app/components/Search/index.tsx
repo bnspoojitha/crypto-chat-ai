@@ -4,20 +4,36 @@ import React, { useState } from "react";
 import rocket from "@/app/Assets/rocket.png";
 import Image from "next/image";
 import axios from "axios";
+import { useGlobalContext } from "@/app/context/globalContext";
+import { chatTypes, reducerTypes } from "@/app/reducers/globalReducer";
 
 type Props = {};
 
 export default function Search({}: Props) {
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
 
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
+      globalDispatch({
+        type: reducerTypes.ADD_CHAT,
+        payloadGlobal: {
+          text: searchText,
+          type: chatTypes.Question,
+        },
+      });
       const url = process.env.NEXT_PUBLIC_API_KEY;
       const response = await axios.get(`${url}${searchText}`);
       if (response.status === 200) {
-        console.log(response.data, "response");
+        globalDispatch({
+          type: reducerTypes.ADD_CHAT,
+          payloadGlobal: {
+            text: response.data,
+            type: chatTypes.Answer,
+          },
+        });
       }
     } catch (error) {
       console.log(error, "error");
