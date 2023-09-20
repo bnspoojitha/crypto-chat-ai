@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-const Login = () => {
+const signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,16 +16,15 @@ const Login = () => {
     const result = await signIn("credentials", {
       username: username,
       password: password,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     });
 
-    // if (result && result.error) {
-    //   setError("Invalid username or password!");
-    // } else {
-    //   console.log("Login successful");
-    //   router.push("/");
-    // }
+    if (result && result.error) {
+      console.log("signin error", error);
+    } else {
+      console.log("Login successful");
+      router.push("/");
+    }
   };
 
   return (
@@ -68,4 +67,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default signin;
