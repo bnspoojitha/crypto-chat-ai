@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import { useReducer } from "react";
 import { globalReducer, init_state_global } from "./reducers/globalReducer";
 import { globalContext } from "./context/globalContext";
+import Providers from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <globalContext.Provider value={{ state, dispatch }}>
-          {children}
+          <Providers>{children}</Providers>
         </globalContext.Provider>
       </body>
     </html>
