@@ -60,7 +60,7 @@ export default function Search({}: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full h-full flex flex-shrink-0 gap-2"
+      className="w-full h-full flex flex-shrink-0 gap-2 "
     >
       <input
         type="text"
@@ -70,7 +70,7 @@ export default function Search({}: Props) {
       />
       <button type="button" disabled={isLoading}>
         {isLoading ? (
-          <span className="loading loading-dots loading-lg "></span>
+          <span className="loading loading-dots loading-lg"></span>
         ) : (
           <Image
             src={rocket}
