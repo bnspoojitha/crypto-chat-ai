@@ -7,11 +7,14 @@ import { signIn } from "next-auth/react";
 const signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setIsSubmitting(true);
 
     const result = await signIn("credentials", {
       username: username,
@@ -19,8 +22,11 @@ const signin = () => {
       redirect: false,
     });
 
+    setIsSubmitting(false);
+
     if (result && result.error) {
       console.log("signin error", result);
+      setError(result.error);
     } else {
       console.log("Login successful");
       router.push("/");
@@ -39,7 +45,7 @@ const signin = () => {
             <input
               type="text"
               placeholder="Your Username"
-              className="w-full p-2 border bg-white text-gray-600 rounded-md focus:outline-none focus:ring focus:border-white"
+              className="w-full p-2 border bg-white selection:bg-purple-300 text-gray-600 rounded-md focus:outline-none focus:ring focus:border-white"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -49,19 +55,29 @@ const signin = () => {
             <input
               type="password"
               placeholder="Your Password"
-              className="w-full p-2 border bg-white text-gray-600 rounded-md focus:outline-none focus:ring focus:border-white"
+              className="w-full p-2 border bg-white selection:bg-purple-300 text-gray-600 rounded-md focus:outline-none focus:ring focus:border-white"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
             <button
               className="absolute right-0 inset-y-auto px-4 py-[2px] border border-stone-200 bg-gradient-to-br from-[#743695] to-[#a859d2] text-white rounded-md transition-bg hover:bg-gradient-to-br hover:from-[#a859d2] hover:to-[#743695]"
               type="submit"
+              disabled={isSubmitting}
             >
-              <span className="text-3xl">&gt;</span>
+              {isSubmitting ? (
+                <span className="loading w-5 h-[25.5px] mt-1"></span>
+              ) : (
+                <span className="text-3xl">&gt;</span>
+              )}
             </button>
           </div>
         </form>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && (
+          <p className="absolute bottom-0 pb-4 pl-1 text-red-800">
+            {"Invalid username or password"}
+          </p>
+        )}
       </div>
     </div>
   );
