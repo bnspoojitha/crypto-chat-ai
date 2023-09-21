@@ -17,7 +17,7 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         const res = await fetch(
-          "http://api.chatbot.com:5001/api-chatbot-ai/api/authenticate",
+          "http://3.26.157.3:5001/api-chatbot-ai/api/authenticate",
           {
             method: "POST",
             body: JSON.stringify({
