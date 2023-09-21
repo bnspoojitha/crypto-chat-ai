@@ -12,6 +12,7 @@ type Props = {};
 export default function Search({}: Props) {
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [answerText, setAnserText] = useState("");
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
 
   const handleSubmit = async () => {
@@ -25,12 +26,19 @@ export default function Search({}: Props) {
         },
       });
       const url = process.env.NEXT_PUBLIC_API_KEY;
-      const response = await axios.get(`${url}${searchText}`);
+
+      const response = await axios.post("/api/search", {
+        input: searchText,
+        token: globalState.jwt,
+      });
+
       if (response.status === 200) {
+        const res = response.data;
+        console.log(res, "res");
         globalDispatch({
           type: reducerTypes.ADD_CHAT,
           payloadGlobal: {
-            text: response.data,
+            text: res.output,
             type: chatTypes.Answer,
           },
         });

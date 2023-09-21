@@ -20,7 +20,7 @@ const signin = () => {
     });
 
     if (result && result.error) {
-      console.log("signin error", error);
+      console.log("signin error", result);
     } else {
       console.log("Login successful");
       router.push("/");

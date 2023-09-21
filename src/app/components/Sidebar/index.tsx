@@ -5,10 +5,18 @@ import Avatar from "@/app/Assets/Avatar.png";
 import { RiHomeLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { FiSettings } from "react-icons/fi";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 export default function sidebar({}: Props) {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    router.push("/auth/signin");
+  };
+
   return (
     // <div className="sidebar flex items-cemnter justify-center">Side Bar </div>
     <div className="sidebar text-[#343333]  p-4 flex flex-col justify-between">
@@ -58,7 +66,10 @@ export default function sidebar({}: Props) {
       {/* Sign Out Button */}
       <div className="divider"></div>
       <div className="mt-auto">
-        <button className="button-sidebar text-white py-2 px-4 rounded w-full">
+        <button
+          className="button-sidebar text-white py-2 px-4 rounded w-full"
+          onClick={handleLogout}
+        >
           Sign Out
         </button>
       </div>
