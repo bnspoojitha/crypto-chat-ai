@@ -1,30 +1,31 @@
-
-export enum chatTypes{
-    Answer = "Answer",
-    Question = "Question"
+export enum chatTypes {
+  Answer = "Answer",
+  Question = "Question",
 }
 
 export enum reducerTypes {
-    ADD_CHAT = "ADD_CHAT"
+  ADD_CHAT = "ADD_CHAT",
+  SET_JWT = "SET_JWT",
 }
 
 export type Chat = {
-    text: string;
-    type: chatTypes
-}
+  text: string;
+  type: chatTypes;
+};
 
 export type State = {
   chats: Chat[];
+  jwt: string;
 };
 
 export const init_state_global: State = {
-    chats: [],
+  chats: [],
+  jwt: "",
 };
 
 export type ReducerActions = {
   type: reducerTypes;
-  payloadGlobal?: Chat;
-  
+  payloadGlobal?: Chat | string;
 };
 
 export const globalReducer = (
@@ -35,10 +36,13 @@ export const globalReducer = (
     case reducerTypes.ADD_CHAT:
       return {
         ...state,
-        chats:[...state.chats,action.payloadGlobal as Chat]
-          
+        chats: [...state.chats, action.payloadGlobal as Chat],
       };
-  
+    case reducerTypes.SET_JWT:
+      return {
+        ...state,
+        jwt: action.payloadGlobal as string,
+      };
     default:
       return state;
   }

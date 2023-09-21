@@ -6,15 +6,42 @@ import Ask from "./components/Ask";
 import Response from "./components/Response";
 import Search from "./components/Search";
 import { useGlobalContext } from "./context/globalContext";
-import { chatTypes } from "./reducers/globalReducer";
+import { chatTypes, reducerTypes } from "./reducers/globalReducer";
 import { signOut, useSession } from "next-auth/react";
 import { Session } from "inspector";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getServerSession } from "next-auth";
+import { options } from "./api/auth/[...nextauth]/options";
+import Cookies from "js-cookie";
+
+type jwtType = {
+  iat: number;
+  exp: number;
+  jti: string;
+  customField: {
+    token: string;
+  };
+};
 
 export default function Home() {
+  const [jwt, setJwt] = useState("");
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
   const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    const user = session?.user as jwtType;
+
+    if (user) {
+      globalDispatch({
+        type: reducerTypes.SET_JWT,
+        payloadGlobal: user.customField.token,
+      });
+    } else {
+      router.push("auth/signin");
+    }
+  }, []);
 
   return (
     <main className="grid grid-cols-6 gap-3 w-screen h-screen p-5">
