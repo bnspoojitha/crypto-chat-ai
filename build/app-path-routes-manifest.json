@@ -1,7 +1,0 @@
-{
-  "/favicon.ico/route": "/favicon.ico",
-  "/page": "/",
-  "/api/search/route": "/api/search",
-  "/auth/signin/page": "/auth/signin",
-  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]"
-}
