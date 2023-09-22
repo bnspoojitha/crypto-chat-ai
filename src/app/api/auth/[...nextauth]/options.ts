@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import Cookies from "js-cookie";
 
 export const options: NextAuthOptions = {
+  secret: "+v0bXtekaOA51qAS8zG9F1CTkPvRUJVgaruvRhvO36o=",
   pages: {
     signIn: "auth/signin",
     signOut: "auth/signin",
@@ -17,7 +18,7 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         const res = await fetch(
-          "http://3.26.157.3:5001/api-chatbot-ai/api/authenticate",
+          "http://13.236.100.190:5001/api-chatbot-ai/api/authenticate",
           {
             method: "POST",
             body: JSON.stringify({
