@@ -1,25 +1,41 @@
 import React from "react";
 import Image from "next/image";
-import Avatar from "@/app/Assets/Avatar.png";
+
+import Typewriter from "typewriter-effect";
+import chatIcon from "@/app/Assets/Chat-1.png";
 
 type Props = {
   response: string;
 };
 
 export default function Response({ response }: Props) {
+  const processedText = response.replace(/\\n/g, "<br>");
+
   return (
     <div className="content flex p-3">
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 ">
         <Image
-          src={Avatar}
-          width={50}
-          height={50}
+          src={chatIcon}
+          width={45}
+          height={45}
           alt="img"
           loading="lazy"
         ></Image>
       </div>
-      <div className="flex-grow px-4 flex flex-col">
-        <span className=" text-base text-[#343333]">{response}</span>
+      <div className="flex-grow px-4 flex flex-col text-base text-[#343333]">
+        {/* <div
+          className="text-base text-[#343333]"
+          dangerouslySetInnerHTML={{ __html: processedText }}
+        /> */}
+
+        <Typewriter
+          options={{
+            strings: processedText,
+            autoStart: true,
+            loop: false,
+            delay: 55,
+          }}
+        />
       </div>
     </div>
   );

@@ -69,7 +69,7 @@ export default function Search({}: Props) {
         onChange={handleOnChange}
         className="content min-h-full w-full placeholder:text-gray-200 placeholder:opacity-50 bg-transparent border-none outline-none text-base text-[#343333eb] px-4"
       />
-      <button type="button" disabled={isLoading}>
+      <button type="submit" disabled={isLoading}>
         {isLoading ? (
           <span className="loading loading-dots loading-lg"></span>
         ) : (

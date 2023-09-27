@@ -38,13 +38,28 @@ export default function Home() {
         type: reducerTypes.SET_JWT,
         payloadGlobal: user.customField.token,
       });
+
+      globalDispatch({
+        type: reducerTypes.ADD_CHAT,
+        payloadGlobal: {
+          text: "Hi!👋",
+          type: chatTypes.Question,
+        },
+      });
+      globalDispatch({
+        type: reducerTypes.ADD_CHAT,
+        payloadGlobal: {
+          text: "Hello! 😊 How can I assist you today?",
+          type: chatTypes.Answer,
+        },
+      });
     } else {
       router.push("auth/signin");
     }
   }, []);
 
   return (
-    <main className="grid grid-cols-6 gap-3 w-screen h-screen p-5">
+    <main className="grid grid-cols-6 gap-3 w-screen h-screen p-5  ">
       <div className="glass-side col-span-1  ">
         <Sidebar />
       </div>
