@@ -60,7 +60,7 @@ const signin = () => {
   .catch((error) => {
     setError("Unauthorised User");
     console.log("API Request Error:", error);
-    // router.push("/");
+    router.push("/");
   });  
   };
 
