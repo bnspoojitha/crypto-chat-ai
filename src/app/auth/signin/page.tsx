@@ -3,34 +3,84 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import axios from 'axios';
+import { FaGooglePlusG } from "react-icons/fa6";
+import {firebaseConfig} from "../../firebaseConfig";
+import { initializeApp } from "@firebase/app";
+import { useGlobalContext } from "../../context/globalContext";
+
+initializeApp(firebaseConfig);
 
 const signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const router = useRouter();
+  const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
 
-    const result = await signIn("credentials", {
-      username: username,
-      password: password,
-      redirect: false,
-    });
+    // const result = await signIn("credentials", {
+    //   username: username,
+    //   password: password,
+    //   redirect: false,
+    // });
+    // setIsSubmitting(false);
 
-    setIsSubmitting(false);
-
-    if (result && result.error) {
-      console.log("signin error", result);
-      setError(result.error);
-    } else {
-      console.log("Login successful");
+    // if (result && result.error) {
+    //   console.log("signin error", result);
+    //   setError(result.error);
+    // } else {
+    //   console.log("Login successful , " +result);
+    //   router.push("/");
+    // }
+  };
+  async function authorizeUser(emailId: string | null) {
+      const payload = {
+        username: "test2@gmail.com",
+        // email:emailId,
+      };
+  axios.post('http://localhost:8080/chatbotapp/authorizeuser', payload)
+  // axios.post('https://33b8-2405-6e00-22ec-df7b-90c1-2bd5-407a-477c.ngrok-free.app/chatbotapp/authorizeuser', payload)
+  .then((res) => {
+    if(res){
       router.push("/");
     }
+    else{
+      setButtonDisabled(true);
+      setError("Unauthorised User");
+    }
+  })
+  .catch((error) => {
+    setError("Unauthorised User");
+    console.log("API Request Error:", error);
+    router.push("/");
+  });  
+  };
+
+
+  const auth = getAuth();
+  const [authing, setAuthing] = useState(false);
+  const signInWithGoogle = async () => {
+    setAuthing(true);
+  signInWithPopup(auth, new GoogleAuthProvider())
+      .then( (response) => {
+       authorizeUser(response.user.email);
+      //  globalDispatch({
+      //   type: reducerTypes.MAIL_ID,
+      //   payloadGlobal: response.user.email,
+      // });
+      })
+      .catch((error) => {
+        console.log(error);
+        setAuthing(false);
+      });
   };
 
   return (
@@ -72,10 +122,12 @@ const signin = () => {
               )}
             </button>
           </div>
+          <div className="divider txt-color" style={{color: "#ffff"}} > or Sign in With</div>
+          <FaGooglePlusG className="text-white text-4xl cursor-pointer"  onClick={signInWithGoogle}  />
         </form>
         {error && (
           <p className="absolute bottom-0 pb-4 pl-1 text-red-800">
-            {"Invalid username or password"}
+            {"Unauthorised User"}
           </p>
         )}
       </div>

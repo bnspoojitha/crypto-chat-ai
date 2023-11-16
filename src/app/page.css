@@ -1,0 +1,43 @@
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; /* Switch to a single column layout on smaller screens */
+  }
+
+  .glass-side {
+    width: 100%; /* Make the sidebar take up the full width on smaller screens */
+  }
+
+  .glass {
+    width: 100%; /* Make the main content take up the full width on smaller screens */
+    margin-left: 0; 
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .glass-side {
+    width: 100%;
+  }
+
+  .glass {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+.main-page{
+/* height: 100vh; */
+}
+
+@media (min-width: 400px ) and (max-width: 767px) {
+  .grid {
+    /* grid-template-columns: 1fr; */
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    }
+  
+}
