@@ -6,7 +6,7 @@ import Ask from "./components/Ask/ask";
 import Response from "./components/Response/Response";
 import Search from "./components/Search/search";
 import { useGlobalContext } from "./context/globalContext";
-import { chatTypes, reducerTypes } from "./reducers/globalReducer";
+import { chatTypes, reducerTypes, UserData } from "./reducers/globalReducer";
 import { signOut, useSession } from "next-auth/react";
 import { Session } from "inspector";
 import { useRouter } from "next/navigation";
@@ -18,6 +18,7 @@ import "./page.css";
 import Header from "./components/Header/header";
 import Footer from "./components/Footer/footer";
 import LandingPage from "./components/Landingpage/landingPage";
+import { stringify } from "querystring";
 // import { IconName } from "react-icons/fa6";
 
 
@@ -31,27 +32,24 @@ type jwtType = {
 };
 
 
-
 export default function Home() {
+
   const [jwt, setJwt] = useState("");
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
   const { data: session } = useSession();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
+
   const handleToggle  = (childValue: boolean) => {
     setIsOpen(childValue);
-    console.log(isOpen,"Value of opened");
   };
   useEffect(() => {
     const user = session?.user as jwtType;
-
-    console.log()
     if (user) {
       globalDispatch({
         type: reducerTypes.SET_JWT,
         payloadGlobal: user.customField.token,
       });
-
       globalDispatch({
         type: reducerTypes.ADD_CHAT,
         payloadGlobal: {
@@ -66,19 +64,16 @@ export default function Home() {
           type: chatTypes.Answer,
         },
       });
-      console.log(jwt, "consoled JWT details");
     } else {
       router.push("auth/signin");
       // router.push("/");
-      console.log(jwt, "consoled JWT details");
     }
   }, []);
-
   return (
 <div className="main-page">
 <Header />
 
-    <main className="grid grid-cols-6 gap-3 w-screen p-5 glass" style={{minHeight:"80vh", gridAutoColumns: "1fr", marginTop: "10px"}} > 
+    <main className="grid grid-cols-6 gap-3 p-5 glass" style={{minHeight:"80vh", gridAutoColumns: "1fr", marginTop: "10px"}} > 
  <div className="glass-side col-span-1" style={{width: isOpen? "100%" : "35%"}}>
         <Sidebar sendValueToParent={handleToggle} isOpen={isOpen} />
       </div>

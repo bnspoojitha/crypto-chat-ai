@@ -6,7 +6,13 @@ export enum chatTypes {
 export enum reducerTypes {
   ADD_CHAT = "ADD_CHAT",
   SET_JWT = "SET_JWT",
+  SET_USER_DATA = "SET_USER_DATA",
 }
+
+export type UserData = {
+  username: string;
+  accessToken: string
+};
 
 export type Chat = {
   text: string;
@@ -16,16 +22,21 @@ export type Chat = {
 export type State = {
   chats: Chat[];
   jwt: string;
+  userData: UserData
 };
 
 export const init_state_global: State = {
   chats: [],
   jwt: "",
+  userData: {
+    username: "",
+    accessToken: ""
+  },
 };
 
 export type ReducerActions = {
   type: reducerTypes;
-  payloadGlobal?: Chat | string;
+  payloadGlobal?: Chat | string | UserData | undefined;
 };
 
 export const globalReducer = (
@@ -43,7 +54,12 @@ export const globalReducer = (
         ...state,
         jwt: action.payloadGlobal as string,
       };
-    default:
+      case reducerTypes.SET_USER_DATA:
+        return {
+          ...state,
+          userData: action.payloadGlobal as unknown as UserData,
+        };
+      default:
       return state;
   }
 };

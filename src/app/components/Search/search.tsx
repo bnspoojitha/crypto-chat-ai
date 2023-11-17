@@ -5,8 +5,7 @@ import rocket from "@/app/Assets/rocket.png";
 import Image from "next/image";
 import axios from "axios";
 import { useGlobalContext } from "@/app/context/globalContext";
-import { chatTypes, reducerTypes } from "@/app/reducers/globalReducer";
-
+import { chatTypes, reducerTypes, UserData } from "@/app/reducers/globalReducer";
 type Props = {};
 
 export default function Search({}: Props) {
@@ -27,16 +26,22 @@ export default function Search({}: Props) {
           type: chatTypes.Question,
         },
       });
+      const accessToken = globalState.userData.accessToken;
+      let headers = {
+        'Content-Type': 'application/json',
+        'Authorization':  `Bearer ${accessToken}`,
+      }
       const url = process.env.NEXT_PUBLIC_API_KEY;
-
-      const response = await axios.post("/api/search", {
+      console.log(url,"url")
+      const response = await axios.post(`${url}/chatbotapp/api/chatbot`, {
+      // const response = await axios.post("http://localhost:8080/chatbotapp/api/chatbot", {
         input: searchText,
-        token: globalState.jwt,
+      },{
+        headers : headers
       });
 
       if (response.status === 200) {
         const res = response.data;
-        console.log(res, "res");
         globalDispatch({
           type: reducerTypes.ADD_CHAT,
           payloadGlobal: {
@@ -46,7 +51,6 @@ export default function Search({}: Props) {
         });
       }
     } catch (error) {
-      console.log(error, "error");
     } finally {
       setIsLoading(false);
       setSearchText("");

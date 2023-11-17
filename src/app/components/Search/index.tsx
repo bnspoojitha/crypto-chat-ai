@@ -27,7 +27,7 @@ export default function Search({}: Props) {
           type: chatTypes.Question,
         },
       });
-      const url = process.env.NEXT_PUBLIC_API_KEY;
+      // const url = process.env.NEXT_PUBLIC_API_KEY;
 
       const response = await axios.post("/api/search", {
         input: searchText,
@@ -36,7 +36,6 @@ export default function Search({}: Props) {
 
       if (response.status === 200) {
         const res = response.data;
-        console.log(res, "res");
         globalDispatch({
           type: reducerTypes.ADD_CHAT,
           payloadGlobal: {
@@ -46,7 +45,6 @@ export default function Search({}: Props) {
         });
       }
     } catch (error) {
-      console.log(error, "error");
     } finally {
       setIsLoading(false);
       setSearchText("");

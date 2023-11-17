@@ -9,6 +9,7 @@ import { FaGooglePlusG } from "react-icons/fa6";
 import {firebaseConfig} from "../../firebaseConfig";
 import { initializeApp } from "@firebase/app";
 import { useGlobalContext } from "../../context/globalContext";
+import { reducerTypes, UserData } from "@/app/reducers/globalReducer";
 
 initializeApp(firebaseConfig);
 
@@ -19,13 +20,13 @@ const signin = () => {
   const [error, setError] = useState("");
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const router = useRouter();
+  const [apiData, setApiData] = useState<any>(null);
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // setIsSubmitting(true);
-
     // const result = await signIn("credentials", {
     //   username: username,
     //   password: password,
@@ -46,10 +47,15 @@ const signin = () => {
         username: "test2@gmail.com",
         // email:emailId,
       };
-  axios.post('http://localhost:8080/chatbotapp/authorizeuser', payload)
-  // axios.post('https://33b8-2405-6e00-22ec-df7b-90c1-2bd5-407a-477c.ngrok-free.app/chatbotapp/authorizeuser', payload)
+      const url = process.env.NEXT_PUBLIC_API_KEY;
+  // axios.post('http://localhost:8080/chatbotapp/authorizeuser', payload)
+  axios.post(`${url}/chatbotapp/authorizeuser`, payload)
   .then((res) => {
     if(res){
+      globalDispatch({
+        type: reducerTypes.SET_USER_DATA,
+        payloadGlobal: res.data as UserData, 
+      });
       router.push("/");
     }
     else{
@@ -60,10 +66,9 @@ const signin = () => {
   .catch((error) => {
     setError("Unauthorised User");
     console.log("API Request Error:", error);
-    // router.push("/");
+    router.push("/");
   });  
   };
-
 
   const auth = getAuth();
   const [authing, setAuthing] = useState(false);
@@ -72,13 +77,8 @@ const signin = () => {
   signInWithPopup(auth, new GoogleAuthProvider())
       .then( (response) => {
        authorizeUser(response.user.email);
-      //  globalDispatch({
-      //   type: reducerTypes.MAIL_ID,
-      //   payloadGlobal: response.user.email,
-      // });
       })
       .catch((error) => {
-        console.log(error);
         setAuthing(false);
       });
   };

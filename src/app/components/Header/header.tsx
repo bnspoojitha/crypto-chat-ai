@@ -26,7 +26,6 @@ const Header: React.FC<HeaderProps> = () => {
       !dropdownRef.current.contains(event.target as Node) &&
       !target.classList.contains("option")
     ) {
-      console.log("clicked outside");
       setIsDropdownOpen(false);
     }
   };
@@ -45,13 +44,11 @@ const Header: React.FC<HeaderProps> = () => {
   };
 
   const toggleDropdown = () => {
-    console.log("toggled");
     setIsDropdownOpen((prevState) => !prevState);
   };
 
   const redirectToLoginPage = (event: React.MouseEvent) => {
     event.stopPropagation();
-    console.log("logged Out")
     router.push("/auth/signin");
   };
 
