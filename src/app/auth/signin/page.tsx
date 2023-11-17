@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+// import { signIn } from "next-auth/react";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import axios from 'axios';
 import { FaGooglePlusG } from "react-icons/fa6";

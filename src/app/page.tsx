@@ -7,12 +7,10 @@ import Response from "./components/Response/Response";
 import Search from "./components/Search/search";
 import { useGlobalContext } from "./context/globalContext";
 import { chatTypes, reducerTypes, UserData } from "./reducers/globalReducer";
-import { signOut, useSession } from "next-auth/react";
-import { Session } from "inspector";
+
+
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getServerSession } from "next-auth";
-import { options } from "./api/auth/[...nextauth]/options";
 import Cookies from "js-cookie";
 import "./page.css";
 import Header from "./components/Header/header";
@@ -36,7 +34,7 @@ export default function Home() {
 
   const [jwt, setJwt] = useState("");
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
 
@@ -44,12 +42,12 @@ export default function Home() {
     setIsOpen(childValue);
   };
   useEffect(() => {
-    const user = session?.user as jwtType;
-    if (user) {
-      globalDispatch({
-        type: reducerTypes.SET_JWT,
-        payloadGlobal: user.customField.token,
-      });
+    // const user = session?.user as jwtType;
+   
+      // globalDispatch({
+      //   type: reducerTypes.SET_JWT,
+      //   payloadGlobal: user.customField.token,
+      // });
       globalDispatch({
         type: reducerTypes.ADD_CHAT,
         payloadGlobal: {
@@ -64,10 +62,6 @@ export default function Home() {
           type: chatTypes.Answer,
         },
       });
-    } else {
-      router.push("auth/signin");
-      // router.push("/");
-    }
   }, []);
   return (
 <div className="main-page">

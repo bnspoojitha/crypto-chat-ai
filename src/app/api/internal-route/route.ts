@@ -16,6 +16,7 @@ const url = process.env.NEXT_BACKEND_API_KEY;
 console.log(url,"inside route")
   const res = await fetch(
     `${url}/chatbotapp/authorizeuser`,
+    // `http://localhost:8080/chatbotapp/authorizeuser`,
     {
       method: "POST",
       headers: {
