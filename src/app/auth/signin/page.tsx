@@ -12,7 +12,9 @@ import { useGlobalContext } from "../../context/globalContext";
 import { reducerTypes, UserData } from "@/app/reducers/globalReducer";
 
 initializeApp(firebaseConfig);
-
+export type payloadtype = {
+  username: string;
+}
 const signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -44,12 +46,11 @@ const signin = () => {
   };
   async function authorizeUser(emailId: string | null) {
       const payload = {
-        username: "test2@gmail.com",
-        // email:emailId,
+        // username: "test2@gmail.com",
+        username:emailId,
       };
-      const url = process.env.NEXT_PUBLIC_API_KEY;
-  // axios.post('http://localhost:8080/chatbotapp/authorizeuser', payload)
-  axios.post(`${url}/chatbotapp/authorizeuser`, payload)
+
+  axios.post(`/api/internal-route`, payload)
   .then((res) => {
     if(res){
       globalDispatch({
@@ -66,7 +67,6 @@ const signin = () => {
   .catch((error) => {
     setError("Unauthorised User");
     console.log("API Request Error:", error);
-    router.push("/");
   });  
   };
 
