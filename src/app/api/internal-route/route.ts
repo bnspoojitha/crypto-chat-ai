@@ -12,8 +12,8 @@ export async function POST(req: Request) {
   else {
     console.log("internal route ...................................................................")
   }
-const url = process.env.NEXT_PUBLIC_BACKEND_API_KEY;
-
+const url = process.env.NEXT_BACKEND_API_KEY;
+console.log(url,"inside route")
   const res = await fetch(
     `${url}/chatbotapp/authorizeuser`,
     {
