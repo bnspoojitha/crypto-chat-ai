@@ -33,7 +33,6 @@ const signin = () => {
 
     try {
       const response = await axios.post(`/api/internal-route`, payload);
-  
       if (response.data) {
         const responseData = response.data as UserData;
         globalDispatch({

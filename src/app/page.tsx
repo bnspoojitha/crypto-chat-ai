@@ -38,23 +38,25 @@ export default function Home() {
   useEffect(() => {
     const sessionuserData = sessionStorage.getItem('userAuthDetails');
     const userAuthDetails = sessionuserData ? JSON.parse(sessionuserData) : null;
-    if(userAuthDetails.accessToken && userAuthDetails.username){
-      globalDispatch({
-        type: reducerTypes.ADD_CHAT,
-        payloadGlobal: {
-          text: "Hi!👋",
-          type: chatTypes.Question,
-        },
-      });
-      globalDispatch({
-        type: reducerTypes.ADD_CHAT,
-        payloadGlobal: {
-          text: "Hello! 😊 How can I assist you today?",
-          type: chatTypes.Answer,
-        },
-      });
-        const userEmailId = sessionStorage.getItem('userEmailId');
-        fetchData(userEmailId);
+    if(userAuthDetails){
+      if(userAuthDetails.accessToken && userAuthDetails.username){
+        globalDispatch({
+          type: reducerTypes.ADD_CHAT,
+          payloadGlobal: {
+            text: "Hi!👋",
+            type: chatTypes.Question,
+          },
+        });
+        globalDispatch({
+          type: reducerTypes.ADD_CHAT,
+          payloadGlobal: {
+            text: "Hello! 😊 How can I assist you today?",
+            type: chatTypes.Answer,
+          },
+        });
+          const userEmailId = sessionStorage.getItem('userEmailId');
+          fetchData(userEmailId);
+      }
     }
     else {
       router.push("auth/signin");
