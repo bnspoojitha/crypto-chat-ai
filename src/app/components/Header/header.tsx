@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = () => {
             <h1>Crypto Co Counsel - Compass</h1>
           </div>
           {/* <div className="nav__menu" > */}
-            <ul className="nav__list">
+            {/* <ul className="nav__list">
                 <li onClick = { ()=> scrollToSection("UserTypes") } className="nav__item">
                   
                User Types
@@ -71,7 +71,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <li onClick = { ()=> scrollToSection("CryptoLawyers") } className="nav__item" >
                Crypto Lawyers
                 </li>
-            </ul>
+            </ul> */}
           {/* </div> */}
           <div className="signout-label">
             <div className="mb-6" ref={dropdownRef}>

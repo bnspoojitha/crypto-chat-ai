@@ -8,13 +8,20 @@ import { useGlobalContext } from "@/app/context/globalContext";
 import { chatTypes, reducerTypes, UserData } from "@/app/reducers/globalReducer";
 type Props = {};
 
+export type PayloadType = {
+  input: string,
+  accesstoken: string
+};
+
+
 export default function Search({}: Props) {
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [answerText, setAnserText] = useState("");
+  const [authtoken, setAuthToken] = useState("");
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
 
     try {
@@ -26,22 +33,25 @@ export default function Search({}: Props) {
           type: chatTypes.Question,
         },
       });
-      const accessToken = globalState.userData.accessToken;
+      console.log(globalState.userData,"globalState userData in search page");
+      const userAccessToken = sessionStorage.getItem('userAccessToken');
+      const accessToken = userAccessToken?.replace(/['"]+/g, '');
       let headers = {
+        'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
-        'Authorization':  `Bearer ${accessToken}`,
       }
-      const url = process.env.NEXT_PUBLIC_API_KEY;
-      console.log(url,"url")
-      const response = await axios.post(`${url}/chatbotapp/api/chatbot`, {
+      console.log(headers,"headers")
       // const response = await axios.post("http://localhost:8080/chatbotapp/api/chatbot", {
-        input: searchText,
-      },{
-        headers : headers
-      });
-
+        const response = await axios.post(`/api/internal-search`, {
+          input: searchText,
+        },
+        {
+          headers : headers,
+        });
+        console.log(accessToken,"in Seacrh")
       if (response.status === 200) {
         const res = response.data;
+        console.log(res, "res for metadata");
         globalDispatch({
           type: reducerTypes.ADD_CHAT,
           payloadGlobal: {
@@ -51,6 +61,7 @@ export default function Search({}: Props) {
         });
       }
     } catch (error) {
+      console.log(error, "error");
     } finally {
       setIsLoading(false);
       setSearchText("");

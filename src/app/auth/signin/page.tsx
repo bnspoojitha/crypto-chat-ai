@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 // import { signIn } from "next-auth/react";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -25,8 +25,45 @@ const signin = () => {
   const [apiData, setApiData] = useState<any>(null);
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
 
+  async function authorizeUser(emailId: string | null) {
+    const cleanEmail = emailId?.replace(/^"(.*)"$/, '$1');
+    const payload = {
+      username:cleanEmail,
+    };
+
+    try {
+      const response = await axios.post(`/api/internal-route`, payload);
+  
+      if (response.data) {
+        const responseData = response.data as UserData;
+        globalDispatch({
+          type: reducerTypes.SET_USER_DATA,
+          payloadGlobal: responseData,
+        });
+        sessionStorage.setItem('userEmailId', JSON.stringify(response.data.username)); // Store the emailId
+        sessionStorage.setItem('userAccessToken', JSON.stringify(response.data.accessToken)); // Store the accessToken
+        sessionStorage.setItem('userAuthDetails', JSON.stringify(responseData));
+        router.push("/");
+        console.log("User data in signin page:", globalState.userData);
+      } else {
+        setButtonDisabled(true);
+        setError("Unauthorised User");
+      }
+    } catch (error) {
+      setError("Unauthorised User");
+      console.log("API Request Error:", error);
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+
+    // useEffect(() => {
+    //   const userEmailId = globalState.userData.accessToken;
+    //   authorizeUser(userEmailId);
+    //   console.log(userEmailId, "On Reload calling authorize user Func")
+    // }, []);
 
     // setIsSubmitting(true);
     // const result = await signIn("credentials", {
@@ -44,31 +81,7 @@ const signin = () => {
     //   router.push("/");
     // }
   };
-  async function authorizeUser(emailId: string | null) {
-      const payload = {
-        // username: "test2@gmail.com",
-        username:emailId,
-      };
 
-  axios.post(`/api/internal-route`, payload)
-  .then((res) => {
-    if(res){
-      globalDispatch({
-        type: reducerTypes.SET_USER_DATA,
-        payloadGlobal: res.data as UserData, 
-      });
-      router.push("/");
-    }
-    else{
-      setButtonDisabled(true);
-      setError("Unauthorised User");
-    }
-  })
-  .catch((error) => {
-    setError("Unauthorised User");
-    console.log("API Request Error:", error);
-  });  
-  };
 
   const auth = getAuth();
   const [authing, setAuthing] = useState(false);
@@ -76,11 +89,20 @@ const signin = () => {
     setAuthing(true);
   signInWithPopup(auth, new GoogleAuthProvider())
       .then( (response) => {
-       authorizeUser(response.user.email);
+       authorizeUser(response.user.email);     
       })
       .catch((error) => {
         setAuthing(false);
       });
+    const storedUserData = localStorage.getItem('userData');
+if (storedUserData) {
+  const parsedUserData = JSON.parse(storedUserData) as UserData;
+  // Dispatch user data to global state
+  globalDispatch({
+    type: reducerTypes.SET_USER_DATA,
+    payloadGlobal: parsedUserData,
+  });
+}
   };
 
   return (

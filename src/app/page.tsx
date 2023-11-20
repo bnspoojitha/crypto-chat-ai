@@ -16,17 +16,13 @@ import "./page.css";
 import Header from "./components/Header/header";
 import Footer from "./components/Footer/footer";
 import LandingPage from "./components/Landingpage/landingPage";
-import { stringify } from "querystring";
-// import { IconName } from "react-icons/fa6";
+import axios from "axios";
 
 
 type jwtType = {
-  iat: number;
-  exp: number;
-  jti: string;
-  customField: {
-    token: string;
-  };
+
+  username: string;
+  accessToken: string;
 };
 
 
@@ -34,20 +30,15 @@ export default function Home() {
 
   const [jwt, setJwt] = useState("");
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
-  // const { data: session } = useSession();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
-
   const handleToggle  = (childValue: boolean) => {
     setIsOpen(childValue);
   };
   useEffect(() => {
-    // const user = session?.user as jwtType;
-   
-      // globalDispatch({
-      //   type: reducerTypes.SET_JWT,
-      //   payloadGlobal: user.customField.token,
-      // });
+    const sessionuserData = sessionStorage.getItem('userAuthDetails');
+    const userAuthDetails = sessionuserData ? JSON.parse(sessionuserData) : null;
+    if(userAuthDetails.accessToken && userAuthDetails.username){
       globalDispatch({
         type: reducerTypes.ADD_CHAT,
         payloadGlobal: {
@@ -62,7 +53,35 @@ export default function Home() {
           type: chatTypes.Answer,
         },
       });
+        const userEmailId = sessionStorage.getItem('userEmailId');
+        fetchData(userEmailId);
+    }
+    else {
+      router.push("auth/signin");
+      console.log("Invalid Session Details")
+    }
   }, []);
+
+  const fetchData = async (userEmailId: string | null) => {
+    try {
+      const cleanEmail = userEmailId?.replace(/^"(.*)"$/, '$1');
+      const response = await axios.post(`/api/internal-route`, { username: cleanEmail });
+      if (response.data) {
+        const responseData = response.data as UserData;
+        globalDispatch({
+          type: reducerTypes.SET_USER_DATA,
+          payloadGlobal: responseData,
+        });
+        sessionStorage.setItem('userData', JSON.stringify(responseData));
+        router.push("/");
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log("API Request Error in main page after reload:", error);
+    }
+  };
+  
   return (
 <div className="main-page">
 <Header />
