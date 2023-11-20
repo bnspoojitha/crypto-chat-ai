@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
   try {
     // const res = await fetch(`http://localhost:8080/chatbotapp/authorizeuser`, {
-    const res = await fetch(`${url}chatbotapp/authorizeuser`, {
+    const res = await fetch(`${url}/chatbotapp/authorizeuser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
