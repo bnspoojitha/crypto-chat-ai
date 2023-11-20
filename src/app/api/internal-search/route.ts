@@ -20,9 +20,8 @@ export async function POST(req: NextRequest) {
   };
   console.log(payload, "Body");
   const res = await fetch(
-    // `${url}/chatbotapp/api/chatbot`,
-    // `http://localhost:8080/api/chatbot`,
-    ` http://localhost:8080/chatbotapp/api/chatbot`,
+    `${url}/chatbotapp/api/chatbot`,
+    // ` http://localhost:8080/chatbotapp/api/chatbot`,
     {
       method: "POST",
       headers: {

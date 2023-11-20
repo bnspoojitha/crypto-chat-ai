@@ -17,10 +17,10 @@ export async function POST(req: Request) {
   const payload = {
     username: cleanEmail,
   };
-  console.log(payload, "inside route");
 
   try {
-    const res = await fetch(`http://localhost:8080/chatbotapp/authorizeuser`, {
+    // const res = await fetch(`http://localhost:8080/chatbotapp/authorizeuser`, {
+    const res = await fetch(`${url}chatbotapp/authorizeuser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
