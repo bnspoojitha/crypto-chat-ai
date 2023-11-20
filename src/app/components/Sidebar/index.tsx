@@ -5,7 +5,6 @@ import Avatar from "@/app/Assets/Avatar.png";
 import { RiHomeLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { FiSettings } from "react-icons/fi";
-import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 type Props = {};
