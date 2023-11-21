@@ -35,11 +35,13 @@ const main =() =>{
   const handleToggle  = (childValue: boolean) => {
     setIsOpen(childValue);
   };
+  if (typeof window !== 'undefined') {
   const sessionUserData = sessionStorage.getItem('userAuthDetails');
   const userAuthDetails = sessionUserData ? JSON.parse(sessionUserData) : null;
   if (!userAuthDetails || !userAuthDetails.accessToken || !userAuthDetails.username) {
     router.push("auth/signin");
     console.log("Invalid Session Details");
+  }
  }
   useEffect(() => {
     if (typeof window !== 'undefined') {
