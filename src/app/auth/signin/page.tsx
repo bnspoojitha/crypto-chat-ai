@@ -24,16 +24,21 @@ const signin = () => {
   const router = useRouter();
   const [apiData, setApiData] = useState<any>(null);
   const { state: globalState, dispatch: globalDispatch } = useGlobalContext();
+  console.log("Logged into login page")
 
   async function authorizeUser(emailId: string | null) {
     const cleanEmail = emailId?.replace(/^"(.*)"$/, '$1');
     const payload = {
       username:cleanEmail,
     };
-
     try {
       const response = await axios.post(`/api/internal-route`, payload);
-      if (response.data) {
+      console.log(response,"response for authorise user")
+     if(response.data.status == 403) {
+        setButtonDisabled(true);
+        setError("Unauthorised User");
+      }
+      else {
         const responseData = response.data as UserData;
         globalDispatch({
           type: reducerTypes.SET_USER_DATA,
@@ -42,22 +47,17 @@ const signin = () => {
         sessionStorage.setItem('userEmailId', JSON.stringify(response.data.username)); // Store the emailId
         sessionStorage.setItem('userAccessToken', JSON.stringify(response.data.accessToken)); // Store the accessToken
         sessionStorage.setItem('userAuthDetails', JSON.stringify(responseData));
-        router.push("/");
+        router.push("/auth/main");
         console.log("User data in signin page:", globalState.userData);
-      } else {
-        setButtonDisabled(true);
-        setError("Unauthorised User");
       }
     } catch (error) {
-      setError("Unauthorised User");
+      setError("Server Error");
       console.log("API Request Error:", error);
     }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-
     // useEffect(() => {
     //   const userEmailId = globalState.userData.accessToken;
     //   authorizeUser(userEmailId);

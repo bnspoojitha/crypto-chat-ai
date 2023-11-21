@@ -32,8 +32,6 @@ const Header: React.FC<HeaderProps> = () => {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Cleanup the event listener when the component is unmounted
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -49,6 +47,7 @@ const Header: React.FC<HeaderProps> = () => {
 
   const redirectToLoginPage = (event: React.MouseEvent) => {
     event.stopPropagation();
+    sessionStorage.clear();
     router.push("/auth/signin");
   };
 
