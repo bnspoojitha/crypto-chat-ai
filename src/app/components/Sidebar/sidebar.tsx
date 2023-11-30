@@ -17,6 +17,7 @@ export default function sidebar({sendValueToParent, isOpen}: Props) {
   const router = useRouter();
   // const [isOpened, setIsOpened] = useState(true);
   const toggle = () => {
+    console.log("Toggle function called");
     const newIsOpen = !isOpen;
     // setIsOpened(!isOpened)
     sendValueToParent(newIsOpen);
@@ -30,10 +31,10 @@ export default function sidebar({sendValueToParent, isOpen}: Props) {
     <div className="sidebar text-[#343333]  p-4 flex flex-col justify-between" style={{width: isOpen? "100%" : "90%" }} >
       <div>
         {/* Sidebar Header */}
-        <div className="top-section" style={{marginLeft: isOpen? '90%' :' 0px'}}>
-          <div className="bars"> <FaBars onClick={toggle} /> </div>
+        <div className="top-section" style={{marginLeft: isOpen? '90%' :'55px'}}>
+          <div className="hamburgermenu"> <FaBars onClick={toggle} /> </div>
         </div> 
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <Image
             src={Avatar}
             alt="User Avatar"
@@ -42,9 +43,9 @@ export default function sidebar({sendValueToParent, isOpen}: Props) {
             {isOpen ? (
             <h2 className="text-2xl text-center mt-2">User Name</h2>
           ) : null}
-        </div>
+        </div> */}
 
-        <div className="divider"></div>
+        {/* <div className="divider"></div> */}
         <div className="flex flex-col justify-start items-center w-full">
           {/* Sidebar Links */}
           <ul className="space-y-2  w-full">

@@ -17,3 +17,7 @@
     transition: background-color 0.5s ease;
     /* Modify the background color for the hover effect */
 }
+.hamburgermenu {
+    cursor: pointer;
+    margin-bottom: 60px;
+}

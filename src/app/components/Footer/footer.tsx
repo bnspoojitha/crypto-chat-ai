@@ -8,9 +8,9 @@ export default function Footer() {
   
     return (
       <footer className="footer">
-          <h1 className="disclaimer-text">Disclaimer:     
-
-            </h1>
+        <div className="footerHeading x-large">
+          <h1 className="disclaimer-text ">Disclaimer: </h1>
+        </div>
       </footer>
     );
   }

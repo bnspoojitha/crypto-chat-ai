@@ -6,6 +6,9 @@ import Avatar from "@/app/Assets/Avatar.png";
 import "./header.css";
 interface HeaderProps {}
 const Header: React.FC<HeaderProps> = () => {
+  const displayName: string | null = sessionStorage.getItem('displayName');
+  const sessionDisplayName = displayName ? displayName.replace(/"/g, '') : 'DefaultDisplayName';
+
   const router = useRouter();
   const scrollToSection = (sectionId: string) => {
     router.push("/#" + sectionId);
@@ -72,14 +75,17 @@ const Header: React.FC<HeaderProps> = () => {
                 </li>
             </ul> */}
           {/* </div> */}
-          <div className="signout-label">
-            <div className="mb-6" ref={dropdownRef}>
+          <div className="signout-label"  onClick={toggleDropdown}>
+            <div ref={dropdownRef}>
               <Image
                 src={Avatar}
                 alt="User Avatar"
-                className="image-positioning"
-                onClick={toggleDropdown}
+                className="image-positioning rounded-full"
+               
               />
+              <div className="name-container">
+                  <span className="display-name">{sessionDisplayName}</span>
+              </div>
             </div>
           </div>
           {isDropdownOpen && (

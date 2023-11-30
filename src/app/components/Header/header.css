@@ -23,14 +23,12 @@
     width: 80%;
   }
   
-
-  
   .image-positioning {
     color: transparent;
-    width: 3rem;
-    height: 3rem;
-    margin-right: 75px;
-    margin-top: 10px;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 1px;
+    margin-top: 4px;
 }
 .header-heading {
     color: #ffff;
@@ -49,7 +47,6 @@
 
   .signout-label {
     cursor: pointer;
-    padding: 10px;
   }
   
   .icon {
@@ -60,8 +57,8 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 68px;
-    right: 16px;
+    top: 71px;
+    right: 3px;
     background: #502D72;
     width: 10vw;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -107,18 +104,8 @@
 
 
 .header__shrink {
-  /* background: #1F4e79; */
   box-shadow: 2px 2px 4px -2px #7c7c7b;
 }
-
-/* .navigation {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color
-} */
 
 .header .container-navbar {
   margin: 0 auto;
@@ -138,10 +125,7 @@
 .nav__list {
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
   justify-content: sp;
-  /* margin-bottom: 0; */
-  /* overflow: hidden; */
   color: #ffff;
   cursor: pointer;
   margin-left: 30%;
@@ -153,7 +137,6 @@
 }
 
 .nav__item .active {
-  /* background-color: #33b6ff; */
   padding-top: 100px;
   padding-bottom: 100px;
   padding-right: 10px;
@@ -163,12 +146,10 @@
 
 .nav__item a {
   text-decoration: none;
-  /* color: #fff; */
   color: #87CEEB;
 }
 
 .nav__item a:hover {
-  /* color: #E42575; */
   transition-duration: 200ms;
 }
 
@@ -221,9 +202,6 @@
   .nav_item {
     padding: 0 5px;
   }
-  /* .container-navbar {
-
-  } */
 }
 
 @media only screen and (max-width: 768px) {
@@ -242,16 +220,6 @@
   .active__menu {
     display: block;
   }
-  /* .nav__list {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 250px;
-    height: 100%;
-    z-index: 333333;
-    flex-direction: column;
-    padding-top: 40px;
-  } */
 
   .mobile__menu {
     display: block;
@@ -264,4 +232,10 @@
   .btn a {
     font-size: 0.7rem !important;
   }
+}
+.name-container{
+    position: relative;
+    right: 33px;
+    top: -21px;
+    color: #ffff;
 }

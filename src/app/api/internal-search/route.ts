@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
   };
   console.log(payload, "Body");
   const res = await fetch(
-    `${url}/chatbotapp/api/chatbot`,
-    // ` http://localhost:8080/chatbotapp/api/chatbot`,
+    `${url}/chatbotapp/api/chatbot/v1`,
+    // ` http://localhost:8080/chatbotapp/api/chatbot/v1`,
     {
       method: "POST",
       headers: {
@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
   );
 
   // const response = await res.json();
-  
   // return NextResponse.json(response);
 
   if (!res.ok) {
@@ -44,6 +43,7 @@ export async function POST(req: NextRequest) {
   }
 
   const response = await res.json();
+  console.log(response,"response for search")
   return NextResponse.json(response);
 } catch (error) {
   console.error("Error in Search route:", error);

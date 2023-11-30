@@ -88,6 +88,7 @@ const signin = () => {
     setAuthing(true);
   signInWithPopup(auth, new GoogleAuthProvider())
       .then( (response) => {
+        sessionStorage.setItem('displayName', JSON.stringify(response.user.displayName))
        authorizeUser(response.user.email);     
       })
       .catch((error) => {
@@ -144,11 +145,19 @@ if (storedUserData) {
             </button>
           </div>
           <div className="divider txt-color" style={{color: "#ffff"}} > or Sign in With</div>
-          <FaGooglePlusG className="text-white text-4xl cursor-pointer"  onClick={signInWithGoogle}  />
+          {/* <div className="signinwithGoogle"> */}
+          <button
+          className="button-sidebar text-white py-2 px-4 rounded w-full" style={{borderBlock: "revert"}}
+          onClick={signInWithGoogle} 
+        >
+          Sign in with Google
+        </button>
+          {/* </div> */}
+          {/* <FaGooglePlusG className="text-white text-4xl cursor-pointer"  onClick={signInWithGoogle}  /> */}
         </form>
         {error && (
           <p className="absolute bottom-0 pb-4 pl-1 text-red-800">
-            {"Unauthorised User"}
+  <strong>{"Unauthorised User"}</strong>
           </p>
         )}
       </div>
