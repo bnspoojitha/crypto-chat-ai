@@ -144,7 +144,7 @@ if (storedUserData) {
               )}
             </button>
           </div>
-          <div className="divider txt-color" style={{color: "#ffff"}} > or Sign in With</div>
+          <div className="divider txt-color" style={{color: "#ffff"}} >----- or ----- </div>
           {/* <div className="signinwithGoogle"> */}
           <button
           className="button-sidebar text-white py-2 px-4 rounded w-full" style={{borderBlock: "revert"}}

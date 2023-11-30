@@ -6,8 +6,10 @@ import Avatar from "@/app/Assets/Avatar.png";
 import "./header.css";
 interface HeaderProps {}
 const Header: React.FC<HeaderProps> = () => {
-  const displayName: string | null = sessionStorage.getItem('displayName');
-  const sessionDisplayName = displayName ? displayName.replace(/"/g, '') : 'DefaultDisplayName';
+  // const displayName: string | null = sessionStorage.getItem('displayName');
+
+  
+  // const sessionDisplayName = displayName ? displayName.replace(/"/g, '') : 'DefaultDisplayName';
 
   const router = useRouter();
   const scrollToSection = (sectionId: string) => {
@@ -53,6 +55,11 @@ const Header: React.FC<HeaderProps> = () => {
     sessionStorage.clear();
     router.push("/auth/signin");
   };
+
+  const displayName: string | null =
+  typeof window !== "undefined" ? sessionStorage.getItem("displayName") : null;
+
+const sessionDisplayName = displayName ? displayName.replace(/"/g, "") : "DefaultDisplayName";
 
   return (
     <header className="header">
